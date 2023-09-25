@@ -1,0 +1,32 @@
+import MobileToggle from "@/components/MobileToggle";
+import SocketIndicator from "@/components/SocketIndicator";
+import UserAvatar from "@/components/UserAvatar";
+import { ChannelType } from "@prisma/client";
+import { Hash, Mic, Video } from "lucide-react";
+import ChatVideoButton from "./ChatVideoButton";
+
+interface ChatHeaderProps {
+  serverId: string;
+  name: string;
+  type: ChannelType | "conversation";
+  imageUrl?: string;
+}
+
+const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeaderProps) => {
+  return (
+    <div className="text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
+      <MobileToggle serverId={serverId} />
+      {type === ChannelType.TEXT && <Hash className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />}
+      {type === ChannelType.AUDIO && <Mic className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />}
+      {type === ChannelType.VIDEO && <Video className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />}
+      {type === "conversation" && <UserAvatar src={imageUrl} className="h-8 w-8 md:h-8 md:w-8 mr-2" />}
+      <p className="font-semibold text-md text-black dark:text-white">{name}</p>
+      <div className="ml-auto flex items-center">
+        {type === "conversation" && <ChatVideoButton />}
+        <SocketIndicator />
+      </div>
+    </div>
+  );
+};
+
+export default ChatHeader;
