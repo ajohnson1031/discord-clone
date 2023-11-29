@@ -2,11 +2,11 @@
   "name": "discord-clone",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://deem.cash/discord-clone",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.5",
